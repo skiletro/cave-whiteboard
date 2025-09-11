@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy3h02ugaryvy"]
+
+[ext_resource type="Script" uid="uid://5uoln5qyl8vd" path="res://whiteboard.gd" id="1_ihy0m"]
+
+[node name="Whiteboard" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ihy0m")
+
+[node name="HelpLabel" type="RichTextLabel" parent="."]
+z_index = 1
+layout_mode = 2
+theme_override_colors/default_color = Color(0.387389, 0.387389, 0.387389, 1)
+theme_override_colors/font_shadow_color = Color(0.122252, 0.122252, 0.122252, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 2
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Esc: [i]Close[/i]     C: [i]Clear[/i]     Enter: [i]Fullscreen[/i]"
+horizontal_alignment = 1
+vertical_alignment = 2
