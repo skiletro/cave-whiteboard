@@ -1,7 +1,9 @@
-extends PanelContainer
+extends CanvasLayer
 
-var state = {}
-var lines = {}
+signal change_colour(new_colour: Color)
+
+var positions: Dictionary = {}
+var color: Color = Color.WHITE
 
 
 func _input(event):
@@ -24,28 +26,35 @@ func _input(event):
 			)
 		)
 
-	elif event is InputEventScreenTouch:
-		if event.pressed:  # Down.
-			state[event.index] = event.position
-			lines[event.index] = Line2D.new()
-			lines[event.index].width = 25.0
-			lines[event.index].begin_cap_mode = Line2D.LINE_CAP_ROUND
-			lines[event.index].end_cap_mode = Line2D.LINE_CAP_ROUND
-			lines[event.index].joint_mode = Line2D.LINE_JOINT_ROUND
-			lines[event.index].default_color = _get_color_for_ptr_index(event.index)
-			lines[event.index].add_point(event.position + Vector2(-0.001, 0.001))
-			lines[event.index].add_point(event.position + Vector2(0.001, -0.001))
-			add_child(lines[event.index])
-		else:  # Up.
-			state.erase(event.index)
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			var new_line: Line2D = Line2D.new()
+			new_line.default_color = color
+			new_line.width = 25.0
+			new_line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+			new_line.end_cap_mode = Line2D.LINE_CAP_ROUND
+			new_line.joint_mode = Line2D.LINE_JOINT_ROUND
+			add_child(new_line)
+			positions[event.index] = {pos = event.position, line = new_line, is_active = true}
+
+		else:
+			positions.erase(event.index)
 		get_viewport().set_input_as_handled()
 
-	elif event is InputEventScreenDrag:  # Movement.
-		state[event.index] = event.position
-		lines[event.index].add_point(event.position)
+	if event is InputEventScreenDrag:
+		positions[event.index]["pos"] = event.position
 		get_viewport().set_input_as_handled()
 
 
-func _get_color_for_ptr_index(index) -> Color:
-	var x = (index % 7) + 1
-	return Color(float(bool(x & 1)), float(bool(x & 2)), float(bool(x & 4)))
+func _physics_process(delta: float) -> void:
+	for index in positions:
+		if $Dock.get_rect().has_point(positions[index]["pos"]):
+			positions[index]["is_active"] = false
+
+		if positions[index]["is_active"]:
+			positions[index]["line"].add_point(positions[index]["pos"])
+
+
+func _on_change_colour(new_colour: Color) -> void:
+	color = new_colour
+	$Dock/ColorRect.color = new_colour
