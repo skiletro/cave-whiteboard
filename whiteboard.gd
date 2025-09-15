@@ -42,8 +42,10 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 	if event is InputEventScreenDrag:
-		if positions.has(event.index):
-			positions[event.index]["pos"] = event.position
+		if !positions.has(event.index):
+			return
+			
+		positions[event.index]["pos"] = event.position
 		get_viewport().set_input_as_handled()
 
 
@@ -53,7 +55,14 @@ func _physics_process(delta: float) -> void:
 			positions[index]["is_active"] = false
 
 		if positions[index]["is_active"]:
-			positions[index]["line"].add_point(positions[index]["pos"])
+			#print(positions[index]["line"].get_point_position(0).distance_to(positions[index]["pos"]))
+			var count: int = positions[index]["line"].get_point_count() - 1
+			var last_pos = positions[index]["line"].get_point_position(count)
+			var current_pos = positions[index]["pos"]
+			
+			if last_pos.distance_to(current_pos) >= 3:
+				positions[index]["line"].add_point(positions[index]["pos"])
+				
 
 
 func _on_change_colour(new_colour: Color) -> void:
