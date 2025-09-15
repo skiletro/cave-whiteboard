@@ -1,53 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy3h02ugaryvy"]
+[gd_scene load_steps=10 format=3 uid="uid://dy3h02ugaryvy"]
 
 [ext_resource type="Script" uid="uid://5uoln5qyl8vd" path="res://whiteboard.gd" id="1_ihy0m"]
-[ext_resource type="Script" uid="uid://w2kfhicttjbn" path="res://dock.gd" id="2_tyhvn"]
+[ext_resource type="Script" uid="uid://dfrra2kbbeqlm" path="res://dock.gd" id="2_tyhvn"]
+[ext_resource type="ButtonGroup" uid="uid://lowf2a6r1j2f" path="res://button_group.tres" id="3_qxae8"]
+[ext_resource type="Script" uid="uid://ciup01xri6bju" path="res://button.gd" id="4_4ykqq"]
+[ext_resource type="Texture2D" uid="uid://b1p3vbh2ocsmb" path="res://longpencil.png" id="4_qxae8"]
+[ext_resource type="Texture2D" uid="uid://b1drkulccop27" path="res://rubber.png" id="6_5b0t2"]
+[ext_resource type="Script" uid="uid://do3htv18rpwt2" path="res://rubber.gd" id="7_nnax6"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyhvn"]
+bg_color = Color(0.136826, 0.136826, 0.136826, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxae8"]
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("dock_rect")]
 follow_viewport_enabled = true
 script = ExtResource("1_ihy0m")
+dock_rect = NodePath("Dock")
 
-[node name="Dock" type="HBoxContainer" parent="." node_paths=PackedStringArray("canvas")]
-z_index = 10
-custom_minimum_size = Vector2(500, 100)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+[node name="PanelContainer" type="PanelContainer" parent="."]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -100.0
-offset_right = 250.0
 grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 4
-size_flags_vertical = 8
-script = ExtResource("2_tyhvn")
-canvas = NodePath("..")
-
-[node name="RedButton" type="Button" parent="Dock"]
-layout_mode = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-text = "red"
-
-[node name="BlueButton" type="Button" parent="Dock"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "blue"
-
-[node name="GreenButton" type="Button" parent="Dock"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "green"
-
-[node name="WhiteButton" type="Button" parent="Dock"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "white"
-
-[node name="ColorRect" type="ColorRect" parent="Dock"]
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_tyhvn")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -71,8 +51,88 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
+[node name="Dock" type="BoxContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 613.0
+offset_top = -430.0
+offset_right = -613.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("2_tyhvn")
+
+[node name="Button" type="Button" parent="Dock"]
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Button2" type="Button" parent="Dock"]
+modulate = Color(0.981371, 0.350289, 0.319129, 1)
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Button3" type="Button" parent="Dock"]
+modulate = Color(0.3234, 0.772077, 0.98, 1)
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Button4" type="Button" parent="Dock"]
+modulate = Color(0.3234, 0.98, 0.367173, 1)
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Button5" type="Button" parent="Dock"]
+modulate = Color(0.98, 0.88151, 0.3234, 1)
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Button6" type="Button" parent="Dock"]
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("6_5b0t2")
+flat = true
+expand_icon = true
+script = ExtResource("7_nnax6")
+
 [connection signal="change_colour" from="." to="." method="_on_change_colour"]
-[connection signal="pressed" from="Dock/RedButton" to="Dock" method="_on_red_button_pressed"]
-[connection signal="pressed" from="Dock/BlueButton" to="Dock" method="_on_blue_button_pressed"]
-[connection signal="pressed" from="Dock/GreenButton" to="Dock" method="_on_green_button_pressed"]
-[connection signal="pressed" from="Dock/WhiteButton" to="Dock" method="_on_white_button_pressed"]

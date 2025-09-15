@@ -5,15 +5,15 @@ signal change_colour(new_colour: Color)
 var positions: Dictionary = {}
 var color: Color = Color.WHITE
 
+@export var dock_rect: Control
+@export var color_preview: ColorRect
 
 func _input(event):
 	if event.is_action_pressed("exit"):
 		get_tree().quit()
 
 	if event.is_action_pressed("clear"):
-		for node in self.get_children():
-			if node is Line2D:
-				node.queue_free()
+		_on_clear_button_pressed()
 
 	if event.is_action_pressed("fullscreen"):
 		var mode := DisplayServer.window_get_mode()
@@ -42,13 +42,14 @@ func _input(event):
 		get_viewport().set_input_as_handled()
 
 	if event is InputEventScreenDrag:
-		positions[event.index]["pos"] = event.position
+		if positions.has(event.index):
+			positions[event.index]["pos"] = event.position
 		get_viewport().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
 	for index in positions:
-		if $Dock.get_rect().has_point(positions[index]["pos"]):
+		if dock_rect.get_rect().has_point(positions[index]["pos"]):
 			positions[index]["is_active"] = false
 
 		if positions[index]["is_active"]:
@@ -57,4 +58,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_change_colour(new_colour: Color) -> void:
 	color = new_colour
-	$Dock/ColorRect.color = new_colour
+
+func _on_clear_button_pressed() -> void:
+		for node in self.get_children():
+			if node is Line2D:
+				node.queue_free()
