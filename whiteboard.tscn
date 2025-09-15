@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dy3h02ugaryvy"]
+[gd_scene load_steps=12 format=3 uid="uid://dy3h02ugaryvy"]
 
 [ext_resource type="Script" uid="uid://5uoln5qyl8vd" path="res://whiteboard.gd" id="1_ihy0m"]
 [ext_resource type="Script" uid="uid://dfrra2kbbeqlm" path="res://dock.gd" id="2_tyhvn"]
@@ -7,11 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://b1p3vbh2ocsmb" path="res://longpencil.png" id="4_qxae8"]
 [ext_resource type="Texture2D" uid="uid://b1drkulccop27" path="res://rubber.png" id="6_5b0t2"]
 [ext_resource type="Script" uid="uid://do3htv18rpwt2" path="res://rubber.gd" id="7_nnax6"]
+[ext_resource type="Texture2D" uid="uid://da6dpxbcye1i8" path="res://clear.png" id="8_koia0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyhvn"]
 bg_color = Color(0.136826, 0.136826, 0.136826, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxae8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_koia0"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("dock_rect")]
 follow_viewport_enabled = true
@@ -47,26 +50,28 @@ offset_right = 458.0
 offset_bottom = 40.0
 theme_override_colors/default_color = Color(1, 1, 1, 0.184314)
 bbcode_enabled = true
-text = "Esc: [i]Close[/i]     C: [i]Clear[/i]     Enter: [i]Fullscreen[/i]    Version 0.9"
+text = "Esc: [i]Close[/i]     C: [i]Clear[/i]     Enter: [i]Fullscreen[/i]    Version 0.9.1"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
 [node name="Dock" type="BoxContainer" parent="."]
-anchors_preset = 12
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 613.0
-offset_top = -430.0
-offset_right = -613.0
-offset_bottom = 160.0
+offset_left = -404.0
+offset_top = -432.0
+offset_right = 404.0
+offset_bottom = 158.0
 grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 script = ExtResource("2_tyhvn")
 
-[node name="Button" type="Button" parent="Dock"]
+[node name="WhitePencil" type="Button" parent="Dock"]
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
@@ -77,7 +82,7 @@ flat = true
 expand_icon = true
 script = ExtResource("4_4ykqq")
 
-[node name="Button2" type="Button" parent="Dock"]
+[node name="RedPencil" type="Button" parent="Dock"]
 modulate = Color(0.981371, 0.350289, 0.319129, 1)
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
@@ -89,7 +94,7 @@ flat = true
 expand_icon = true
 script = ExtResource("4_4ykqq")
 
-[node name="Button3" type="Button" parent="Dock"]
+[node name="BluePencil" type="Button" parent="Dock"]
 modulate = Color(0.3234, 0.772077, 0.98, 1)
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
@@ -101,7 +106,7 @@ flat = true
 expand_icon = true
 script = ExtResource("4_4ykqq")
 
-[node name="Button4" type="Button" parent="Dock"]
+[node name="GreenPencil" type="Button" parent="Dock"]
 modulate = Color(0.3234, 0.98, 0.367173, 1)
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
@@ -113,7 +118,7 @@ flat = true
 expand_icon = true
 script = ExtResource("4_4ykqq")
 
-[node name="Button5" type="Button" parent="Dock"]
+[node name="YellowPencil" type="Button" parent="Dock"]
 modulate = Color(0.98, 0.88151, 0.3234, 1)
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
@@ -125,7 +130,19 @@ flat = true
 expand_icon = true
 script = ExtResource("4_4ykqq")
 
-[node name="Button6" type="Button" parent="Dock"]
+[node name="PurplePencil" type="Button" parent="Dock"]
+modulate = Color(0.74627, 0.4606, 0.98, 1)
+custom_minimum_size = Vector2(112.39, 0)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
+toggle_mode = true
+button_group = ExtResource("3_qxae8")
+icon = ExtResource("4_qxae8")
+flat = true
+expand_icon = true
+script = ExtResource("4_4ykqq")
+
+[node name="Rubber" type="Button" parent="Dock"]
 custom_minimum_size = Vector2(112.39, 0)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qxae8")
@@ -136,4 +153,22 @@ flat = true
 expand_icon = true
 script = ExtResource("7_nnax6")
 
+[node name="Clear" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 425.0
+offset_top = -292.0
+offset_right = 645.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_koia0")
+icon = ExtResource("8_koia0")
+flat = true
+icon_alignment = 1
+
 [connection signal="change_colour" from="." to="." method="_on_change_colour"]
+[connection signal="pressed" from="Clear" to="." method="_on_clear_button_pressed"]
